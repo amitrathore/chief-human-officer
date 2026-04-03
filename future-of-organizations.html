@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Organization Has Left the Building</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --warm: #f0e6d0;
+    --accent: #c8441a;
+    --muted: #8a7f72;
+    --rule: #d4c9b8;
+    --highlight: #e8d5a0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  .masthead-brand {
+    color: var(--ink);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 6rem 3rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .hero-deck {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    max-width: 680px;
+    line-height: 1.5;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.7s;
+  }
+
+  .hero-meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* LARGE RULE NUMBER */
+  .rule-number {
+    position: absolute;
+    right: 2rem;
+    top: 4rem;
+    font-family: 'Fraunces', serif;
+    font-size: 18rem;
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--rule);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 0.8s;
+  }
+
+  /* BODY LAYOUT */
+  .article-body {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 3rem 6rem;
+  }
+
+  /* LEAD */
+  .lead {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--ink);
+    border-left: 4px solid var(--accent);
+    padding-left: 2rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.9s;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+    max-width: 60px;
+  }
+
+  .section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .section h2 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .section p {
+    font-size: 1.05rem;
+    line-height: 1.78;
+    color: #2a2520;
+    margin-bottom: 1.4rem;
+  }
+
+  /* PULLQUOTE */
+  .pullquote {
+    margin: 3rem -4rem;
+    padding: 2.5rem 4rem;
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+  }
+
+  .pullquote::before {
+    content: '\201C';
+    font-family: 'Fraunces', serif;
+    font-size: 8rem;
+    line-height: 0.6;
+    color: var(--accent);
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;
+    opacity: 0.6;
+  }
+
+  .pullquote p {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--paper) !important;
+    padding-left: 3rem;
+  }
+
+  /* STAT STRIP */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+    margin: 3rem 0;
+    overflow: hidden;
+  }
+
+  .stat-item {
+    padding: 2rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 2rem;
+    right: 2rem;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+  }
+
+  .stat-item.visible::after {
+    transform: scaleX(1);
+  }
+
+  .stat-number {
+    font-family: 'Fraunces', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: var(--highlight);
+    border-top: 3px solid var(--ink);
+    padding: 2rem 2.5rem;
+    margin: 2.5rem 0;
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: #2a2520;
+  }
+
+  /* NUMBERED LIST */
+  .numbered-list {
+    counter-reset: item;
+    list-style: none;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .numbered-list li {
+    counter-increment: item;
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.4rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #2a2520;
+  }
+
+  .numbered-list li::before {
+    content: counter(item, decimal-leading-zero);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    min-width: 2rem;
+    padding-top: 0.3rem;
+    flex-shrink: 0;
+  }
+
+  /* HORIZONTAL RULE */
+  .hr-ornament {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3.5rem 0;
+    color: var(--muted);
+  }
+
+  .hr-ornament::before,
+  .hr-ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .hr-ornament span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* CLOSING */
+  .closing {
+    border-top: 2px solid var(--ink);
+    padding-top: 3rem;
+    margin-top: 4rem;
+  }
+
+  .closing-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+  }
+
+  .closing-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .byline-block {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .byline-avatar {
+    width: 52px;
+    height: 52px;
+    background: var(--ink);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    color: var(--paper);
+    font-style: italic;
+  }
+
+  .byline-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .byline-text strong {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+
+  .footer-strip {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--paper); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .masthead { padding: 1rem 1.5rem; }
+    .hero { padding: 4rem 1.5rem 3rem; }
+    .article-body { padding: 0 1.5rem 4rem; }
+    .rule-number { display: none; }
+    .pullquote { margin: 2rem -1.5rem; padding: 2rem 1.5rem; }
+    .stat-strip { grid-template-columns: 1fr; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--rule); }
+    .stat-item:last-child { border-bottom: none; }
+    .footer-strip { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <span class="masthead-brand">AwakeVC · Intergraph · The Fractals</span>
+  <span>Thought Leadership · March 2026</span>
+</header>
+
+<section class="hero">
+  <div class="rule-number">∞</div>
+  <div class="hero-kicker">The Future of Organizations</div>
+  <h1 class="hero-title">The Organization<br>Has Left <em>the Building</em></h1>
+  <p class="hero-deck">McKinsey just confirmed what the edge already knew: the old model of the firm is over. Here's what comes next — and why most leaders are asking the wrong questions.</p>
+  <div class="hero-meta">
+    <span>By Amit Rathore</span>
+    <span class="hero-meta-dot"></span>
+    <span>Founder, AwakeVC &amp; Intergraph</span>
+    <span class="hero-meta-dot"></span>
+    <span>10 min read</span>
+  </div>
+</section>
+
+<main class="article-body">
+
+  <p class="lead">McKinsey's 2026 State of Organizations report surveyed over 10,000 senior executives across 15 countries. The headline finding, buried under careful corporate language, is quietly devastating: 88% of organizations are experimenting with AI. 81% report no meaningful impact on the bottom line. Most leaders know something tectonic is happening. Almost none of them know what to do about it.</p>
+
+  <div class="section">
+    <div class="section-label">Part I</div>
+    <h2>The Gap Between <em>Knowing</em> and Becoming</h2>
+    <p>There's a particular kind of organizational paralysis that sets in when a tectonic shift arrives too fast to process. Leaders sense the ground moving. They fund pilots. They form committees. They hire a Chief AI Officer. They nod along to conference presentations about "the agentic future." And yet — nothing fundamentally changes.</p>
+    <p>McKinsey calls this the failure of a "piecemeal approach." I'd call it something older: the failure of identity. Organizations are not failing at AI adoption because they lack tools or budgets or talent pipelines. They are failing because they are trying to graft a new paradigm onto a self-concept that was built for a different era.</p>
+    <p>The firm — as a legal, economic, and psychological structure — was invented to solve a specific coordination problem: how do you align the labor of many strangers toward a shared productive purpose when information is scarce, trust is local, and communication is slow? Hierarchy, departments, job descriptions, performance reviews, org charts — all of these are technologies. Clever ones, historically. But technologies built for a world of scarcity, friction, and opacity.</p>
+    <p>That world is gone. And the firm that ran on it is now running on legacy infrastructure.</p>
+  </div>
+
+  <div class="stat-strip section">
+    <div class="stat-item">
+      <div class="stat-number">88%</div>
+      <div class="stat-label">of organizations experimenting with AI</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">81%</div>
+      <div class="stat-label">reporting no meaningful bottom-line gains</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">72%</div>
+      <div class="stat-label">say their org is not ready for upcoming change</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Part II</div>
+    <h2>Three Forces, <em>One Diagnosis</em></h2>
+    <p>McKinsey identifies three "tectonic forces" reshaping organizations: technology disruption, economic fragmentation, and workforce transformation. They're right about the forces. But the diagnosis misses the deeper pattern.</p>
+    <p>These three forces are not separate phenomena converging at an inconvenient moment. They are three expressions of the same underlying shift: the collapse of scarcity as the organizing principle of economic life.</p>
+    <p>When intelligence becomes abundant, when coordination becomes cheap, when knowledge can be replicated at zero marginal cost — the entire logic of the firm inverts. You no longer need a hierarchy to allocate scarce managerial attention. You no longer need departments to contain specialized knowledge. You no longer need a building to coordinate labor. The transaction costs that made the firm necessary in the first place have approached zero.</p>
+
+    <div class="pullquote">
+      <p>The organization was always a workaround. A patch on a world where information was scarce and trust was local. AI doesn't disrupt the firm — it reveals that the firm was always a temporary solution to a permanent coordination problem.</p>
+    </div>
+
+    <p>This is not a technology story. It's an ontology story. The question isn't "how do we adopt AI?" The question is: "what does organizing human effort look like when the old constraints dissolve?"</p>
+    <p>McKinsey gestures at this when they distinguish "AI Pioneers" from the pack — noting that pioneers who have a "clear vision for AI's future impact" see nearly 90% of leaders actively championing adoption. But what does it mean to have a clear vision? It means you've resolved the identity crisis. You know what you're becoming, not just what tool you're deploying.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Part III</div>
+    <h2>What Leaders Get Wrong About <em>Productivity</em></h2>
+    <p>The report's productivity chapter is its most honest. Two-thirds of executives see their organizations as overly complex and inefficient. Forty-three percent cite productivity growth as their top priority. And yet — "traditional remedies relying on structural redesigns, cost cuts, and flatter hierarchies are achieving diminishing returns."</p>
+    <p>Here is the fundamental error: productivity is being measured against the wrong baseline. When leaders say they want "more productivity," they usually mean: more output from the same people doing roughly the same work. But in an age of AI agents, the question isn't how to optimize the existing workflow — it's whether the workflow itself should continue to exist.</p>
+
+    <div class="highlight-box">
+      The McKinsey report notes that one firm found it was "duplicating 35% of decisions across functions, holding 60% more meetings than peers, creating two-month lags in data cascading, and spending more than 1,000 hours per month on manual reporting." These are not efficiency problems. They are identity problems. The firm was organized to do these things — and no amount of AI tooling will fix them while the organizational identity demands them.
+    </div>
+
+    <p>The insight from the Intergraph thesis is relevant here: context is money. The productivity ceiling isn't hit because people work too slowly — it's hit because the information flows that coordinate work are poorly structured. Most organizations are not information systems. They are information labyrinths, where knowledge is fragmented across teams, buried in email threads, locked in the heads of people who happen to have been in the right meeting.</p>
+    <p>A genuine productivity transformation doesn't reorganize the people. It rebuilds the context graph — the living, shared memory of what the organization knows, what it intends, what it has learned, and what it owes. That's what AI-native infrastructure actually means. Not a chatbot on top of your old systems. A new substrate for organizational intelligence.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Part IV</div>
+    <h2>The Human-Agent <em>Collaboration Myth</em></h2>
+    <p>McKinsey dedicates considerable attention to "humans and AI agents: building a new world of collaboration." It's one of their nine organizing shifts. And it's mostly right — but it's framed in a way that keeps leaders stuck.</p>
+    <p>The framing is: we have humans, we have AI agents, how do we get them to work together well? This is the wrong question. It assumes the agent is a tool to be integrated into an existing human workflow. Like asking, in 1995, how do we get our employees to collaborate better with email.</p>
+    <p>The answer was never "teach people to email better." The answer was: email changes the nature of work itself. Some work that used to exist stops existing. New work emerges that was previously impossible. The entire organizational surface area shifts.</p>
+    <p>The same is true of AI agents, but at a far more fundamental level. The question is not how humans and agents collaborate. The question is: what is the work that only humans should do — and what does that mean for how we organize, compensate, develop, and lead people?</p>
+    <p>McKinsey's data points at this obliquely: "around 75% of current roles will need reshaping with new skill mixes that combine greater technological fluency with stronger social, emotional, and higher-cognitive capabilities." But reshaping roles is still the old paradigm. The bolder move is to ask: what is the organizational form that emerges when the agent handles the transaction and the human holds the relationship, the judgment, and the meaning?</p>
+  </div>
+
+  <div class="hr-ornament"><span>∗ ∗ ∗</span></div>
+
+  <div class="section">
+    <div class="section-label">Part V</div>
+    <h2>The Four Moves That <em>Actually Matter</em></h2>
+    <p>Most AI transformation roadmaps give you a list of tools and a change management plan. What follows is not that. These are architectural moves — shifts in how you think about what an organization is and does.</p>
+
+    <ol class="numbered-list">
+      <li><strong>Rebuild the context graph, not the org chart.</strong> The most valuable thing any organization possesses is its accumulated context: the hard-won knowledge of what works, what customers need, what this team is actually good at. Most firms let this rot in documents no one reads and institutional memory that walks out the door when people leave. The first move is to treat organizational context as a first-class asset — durable, structured, queryable, and increasingly owned by agents that can act on it.</li>
+
+      <li><strong>Shift from compliance to sovereignty.</strong> The old firm ran on compliance — people executing within defined roles and processes. The new firm runs on sovereignty — people and agents operating with genuine autonomy within clear principles. McKinsey's data on "reflective leadership" hints at this: leaders who engage in regular self-reflection are 30% more confident in their organization's adaptability, and significantly more likely to champion AI adoption. That's because sovereignty starts internally. You can't build an organization of sovereign agents if the leader is still running on inherited scripts.</li>
+
+      <li><strong>Design for infinite games, not quarterly cycles.</strong> The most pernicious legacy of industrial-era management is the finite game mindset — optimize for this quarter, hit this milestone, win this market. Finite games have exits and winners. The coming economy of AI agents and distributed intelligence is fundamentally an infinite game: the goal is to keep value flowing, to maintain participation, to compound contribution. This changes how you think about incentives, talent, customers, and capital — everything.</li>
+
+      <li><strong>Invest in human depth, not human breadth.</strong> The instinct, when AI takes over more tasks, is to "upskill" — teach everyone a little more about AI, add prompt engineering to job descriptions, run workshops on responsible AI use. This is necessary but not sufficient. The deeper investment is in the distinctly human capabilities that AI cannot replicate: moral judgment, contextual wisdom, genuine relationship, creative synthesis, the ability to hold uncertainty without collapsing into false certainty. These are not soft skills. In the age of AI, they are the hard skills.</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Part VI</div>
+    <h2>On <em>Diversity</em> and the Next Economy</h2>
+    <p>McKinsey's finding on D&I deserves more than a chapter: 90% of global leaders still see it as a priority, and organizations with strong belonging scores see a 56% improvement in job performance and a 50% drop in turnover risk.</p>
+    <p>But here's the framing that gets lost: in an economy increasingly mediated by AI agents, the organizations that will be most resilient are those with the widest range of perspectives actively shaping how those agents are designed, deployed, and governed. Monocultures — of thought, background, experience — produce brittle systems. In finite games, you can get away with it. In infinite games, you cannot.</p>
+    <p>The shift from diversity as compliance to diversity as architecture is one of the most underappreciated moves available to any leadership team right now. Not "we need more diverse representation" — though that remains true — but "we need diverse cognitive architectures building our systems, or those systems will encode the blindspots of whoever built them at scale."</p>
+  </div>
+
+  <div class="section closing">
+    <div class="section-label">Coda</div>
+    <h2 class="closing-title">The Organization<br>Is <em>a Protocol Now</em></h2>
+    <p>Here is what I believe the next decade will reveal: the firm, as we know it, is giving way to the protocol. Not a technology protocol — a coordination protocol. A set of principles, incentives, and shared context that allows humans and agents to self-organize around meaningful work without requiring a hierarchy to hold them together.</p>
+    <p>McKinsey's report is a sincere attempt to help incumbent leaders navigate an inflection point. It is full of useful data and genuine insight. But it is, by nature, written from within the paradigm it is describing the end of. It assumes the organization persists. It asks how the organization adapts. It does not ask what comes after the organization.</p>
+    <p>That is the question worth asking. And the answer — if you follow the logic of abundant intelligence, zero-marginal-cost knowledge, and human sovereignty — looks less like a reorganized firm and more like a living network of contexts, agents, humans, and games: an Intergraph.</p>
+    <p>The organization hasn't disappeared. It has outgrown its container. The building has already been left. The question is only whether you're building the next thing — or reorganizing the furniture in the last one.</p>
+
+    <div class="byline-block">
+      <div class="byline-avatar">A</div>
+      <div class="byline-text">
+        <strong>Amit Rathore</strong>
+        Founder &amp; CTO, Intergraph · Founder, AwakeVC · Creator of The Fractals<br>
+        Building the knowledge fabric for the agentic economy.<br>
+        awake.vc · intergraph.ai · thefractals.co · bookofagents.com
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer-strip">
+  <span>© 2026 AwakeVC</span>
+  <div class="footer-links">
+    <a href="https://awake.vc">AwakeVC</a>
+    <a href="https://intergraph.ai">Intergraph</a>
+    <a href="https://thefractals.co">The Fractals</a>
+    <a href="https://bookofagents.com">Book of Agents</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll-triggered section reveals
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Trigger stat bar animations too
+        entry.target.querySelectorAll('.stat-item').forEach((item, i) => {
+          setTimeout(() => item.classList.add('visible'), i * 150);
+        });
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.section').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

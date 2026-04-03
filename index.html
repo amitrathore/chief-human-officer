@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chief Human Officer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --warm: #f0e6d0;
+    --accent: #c8441a;
+    --muted: #8a7f72;
+    --rule: #d4c9b8;
+    --highlight: #e8d5a0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  .site-nav {
+    border-bottom: 2px solid var(--ink);
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 100;
+  }
+
+  .site-nav-brand {
+    color: var(--ink);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+  }
+
+  .site-nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .site-nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .site-nav-links a:hover,
+  .site-nav-links a.active {
+    color: var(--ink);
+  }
+
+  .site-nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -0.4rem;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .site-nav-links .coming-soon {
+    color: var(--rule);
+    cursor: default;
+  }
+
+  .site-nav-links .coming-soon:hover {
+    color: var(--rule);
+  }
+
+  /* SITE HERO */
+  .site-hero {
+    padding: 8rem 3rem 6rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+  }
+
+  .site-hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .site-hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+
+  .site-hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .site-hero-subtitle {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto 3rem;
+    line-height: 1.5;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+
+  .site-hero-rule {
+    width: 60px;
+    height: 2px;
+    background: var(--accent);
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.7s;
+  }
+
+  /* MANIFESTO SECTION */
+  .manifesto-intro {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 4rem 3rem 2rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .manifesto-intro.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .manifesto-intro .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .manifesto-intro h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .manifesto-intro h2 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .manifesto-intro p {
+    font-size: 1.05rem;
+    line-height: 1.78;
+    color: #2a2520;
+    max-width: 620px;
+    margin: 0 auto 2rem;
+  }
+
+  .read-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    padding: 0.9rem 2rem;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .read-link:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .read-link .arrow {
+    transition: transform 0.2s;
+  }
+
+  .read-link:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* BOOK SECTION */
+  .book-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 3rem;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .book-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .book-section-inner {
+    border-top: 2px solid var(--ink);
+    padding-top: 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .book-left .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .book-left h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .book-left h2 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .book-left p {
+    font-size: 1.05rem;
+    line-height: 1.78;
+    color: #2a2520;
+    margin-bottom: 1.4rem;
+  }
+
+  .book-right {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3rem;
+    position: relative;
+  }
+
+  .book-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+  }
+
+  .book-placeholder-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .book-placeholder-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    color: var(--paper);
+  }
+
+  .book-chapters {
+    list-style: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 2.4;
+  }
+
+  .book-chapters li {
+    border-bottom: 1px solid #2a2520;
+    padding: 0.2rem 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .book-chapters li:last-child {
+    border-bottom: none;
+  }
+
+  .book-chapters .ch-num {
+    color: var(--accent);
+  }
+
+  /* COMMUNITY SECTION */
+  .community-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem 8rem;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .community-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .community-inner {
+    border-top: 2px solid var(--ink);
+    padding-top: 4rem;
+    text-align: center;
+  }
+
+  .community-inner .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .community-inner h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .community-inner h2 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .community-inner p {
+    font-size: 1.05rem;
+    line-height: 1.78;
+    color: #2a2520;
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .coming-soon-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    padding: 0.7rem 1.8rem;
+  }
+
+  /* FOOTER */
+  .footer-strip {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--paper); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .site-nav { padding: 1rem 1.5rem; }
+    .site-nav-links { gap: 1.5rem; }
+    .site-hero { padding: 5rem 1.5rem 4rem; }
+    .manifesto-intro { padding: 3rem 1.5rem 2rem; }
+    .book-section { padding: 4rem 1.5rem; }
+    .book-section-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .community-section { padding: 0 1.5rem 5rem; }
+    .footer-strip { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+
+<body>
+
+<nav class="site-nav">
+  <a href="/" class="site-nav-brand">Chief Human Officer</a>
+  <ul class="site-nav-links">
+    <li><a href="#manifesto" class="active">Manifesto</a></li>
+    <li><a href="#book">Book</a></li>
+    <li><a href="#community" class="coming-soon">Community</a></li>
+  </ul>
+</nav>
+
+<section class="site-hero">
+  <div class="site-hero-label">A new role for a new era</div>
+  <h1 class="site-hero-title">Chief <em>Human</em> Officer</h1>
+  <p class="site-hero-subtitle">In the age of AI agents, the scarcest resource isn't intelligence — it's humanity. The organizations that thrive will be the ones that invest in human depth, sovereignty, and meaning.</p>
+  <div class="site-hero-rule"></div>
+</section>
+
+<section id="manifesto" class="manifesto-intro">
+  <div class="section-label">The Manifesto</div>
+  <h2>The Organization Has Left <em>the Building</em></h2>
+  <p>McKinsey just confirmed what the edge already knew: the old model of the firm is over. 88% of organizations are experimenting with AI. 81% report no meaningful impact. Most leaders know something tectonic is happening. Almost none of them know what to do about it.</p>
+  <a href="future-of-organizations.html" class="read-link">
+    Read the full essay <span class="arrow">&rarr;</span>
+  </a>
+</section>
+
+<section id="book" class="book-section">
+  <div class="book-section-inner">
+    <div class="book-left">
+      <div class="section-label">The Book</div>
+      <h2>What Comes After <em>the Org Chart</em></h2>
+      <p>A book about the end of the firm as we know it — and the coordination protocols, living networks, and human-agent architectures that replace it.</p>
+      <p>Not a management book. Not an AI book. A book about what it means to organize human effort when the old constraints dissolve.</p>
+    </div>
+    <div class="book-right">
+      <div class="book-placeholder-label">Table of Contents</div>
+      <div class="book-placeholder-title">Coming soon</div>
+      <ul class="book-chapters">
+        <li><span class="ch-num">01</span> <span>The Firm Was a Workaround</span></li>
+        <li><span class="ch-num">02</span> <span>The Collapse of Scarcity</span></li>
+        <li><span class="ch-num">03</span> <span>Context Is Money</span></li>
+        <li><span class="ch-num">04</span> <span>The Human-Agent Myth</span></li>
+        <li><span class="ch-num">05</span> <span>From Compliance to Sovereignty</span></li>
+        <li><span class="ch-num">06</span> <span>Infinite Games</span></li>
+        <li><span class="ch-num">07</span> <span>The Organization Is a Protocol</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="community" class="community-section">
+  <div class="community-inner">
+    <div class="section-label">Community</div>
+    <h2>For the <em>Builders</em></h2>
+    <p>A space for leaders, founders, and builders who are designing the next organizational forms — not reorganizing the furniture in the last ones.</p>
+    <div class="coming-soon-badge">Coming Soon</div>
+  </div>
+</section>
+
+<footer class="footer-strip">
+  <span>&copy; 2026 Chief Human Officer</span>
+  <div class="footer-links">
+    <a href="https://awake.vc">AwakeVC</a>
+    <a href="https://intergraph.ai">Intergraph</a>
+    <a href="https://thefractals.co">The Fractals</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.manifesto-intro, .book-section, .community-section').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
