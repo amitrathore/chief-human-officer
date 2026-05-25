@@ -349,6 +349,87 @@
     color: var(--accent);
   }
 
+  /* THREE DOMAINS SECTION */
+  .domains-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem 6rem;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .domains-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .domains-inner {
+    border-top: 2px solid var(--ink);
+    padding-top: 4rem;
+  }
+
+  .domains-inner .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .domains-inner h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+
+  .domains-inner h2 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .domains-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+
+  .domain-card {
+    border-top: 2px solid var(--accent);
+    padding-top: 1.8rem;
+  }
+
+  .domain-card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .domain-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 0.9rem;
+    letter-spacing: -0.01em;
+  }
+
+  .domain-card p {
+    font-size: 0.98rem;
+    line-height: 1.72;
+    color: #2a2520;
+  }
+
   /* COMMUNITY SECTION */
   .community-section {
     max-width: 1100px;
@@ -454,6 +535,8 @@
 
   /* RESPONSIVE */
   @media (max-width: 700px) {
+    .domains-section { padding: 0 1.5rem 4rem; }
+    .domains-grid { grid-template-columns: 1fr; gap: 2rem; }
     .site-nav { padding: 1rem 1.5rem; }
     .site-nav-links { gap: 1.5rem; }
     .site-hero { padding: 5rem 1.5rem 4rem; }
@@ -480,7 +563,7 @@
 <section class="site-hero">
   <div class="site-hero-label">A new role for a new era</div>
   <h1 class="site-hero-title">Chief <em>Human</em> Officer</h1>
-  <p class="site-hero-subtitle">In the age of AI agents, the scarcest resource isn't intelligence — it's humanity. The organizations that thrive will be the ones that invest in human depth, sovereignty, and meaning.</p>
+  <p class="site-hero-subtitle">In the age of AI agents, the scarcest resource isn't intelligence — it's humanity. The Chief Human Officer isn't an HR title. It's the most strategically important role in any organization: the guardian of what makes your team, your brand, and your customer experience irreducibly human.</p>
   <div class="site-hero-rule"></div>
 </section>
 
@@ -488,6 +571,7 @@
   <div class="section-label">The Manifesto</div>
   <h2>The Organization Has Left <em>the Building</em></h2>
   <p>McKinsey just confirmed what the edge already knew: the old model of the firm is over. 88% of organizations are experimenting with AI. 81% report no meaningful impact. Most leaders know something tectonic is happening. Almost none of them know what to do about it.</p>
+  <p>What's missing isn't a better AI strategy. It's the honest, vulnerable, irreplaceable humanness that no model can generate: the leader who speaks a hard truth, the brand that admits it got something wrong, the support call that actually feels like a person cares. That's not soft. That's the only durable competitive advantage left.</p>
   <a href="future-of-organizations.html" class="read-link">
     Read the full essay <span class="arrow">&rarr;</span>
   </a>
@@ -498,21 +582,45 @@
     <div class="book-left">
       <div class="section-label">The Book</div>
       <h2>What Comes After <em>the Org Chart</em></h2>
-      <p>A book about the end of the firm as we know it — and the coordination protocols, living networks, and human-agent architectures that replace it.</p>
-      <p>Not a management book. Not an AI book. A book about what it means to organize human effort when the old constraints dissolve.</p>
+      <p>A book about the most important strategic question of the AI era: not which models to use, but how to protect and amplify what makes your organization irreducibly human.</p>
+      <p>Not an HR book. Not an AI book. A book about the new role of ensuring success through being human — as a team, as a brand, and as a customer experience — when everything else can be automated.</p>
     </div>
     <div class="book-right">
       <div class="book-placeholder-label">Table of Contents</div>
       <div class="book-placeholder-title">Coming soon</div>
       <ul class="book-chapters">
-        <li><span class="ch-num">01</span> <span>The Firm Was a Workaround</span></li>
-        <li><span class="ch-num">02</span> <span>The Collapse of Scarcity</span></li>
-        <li><span class="ch-num">03</span> <span>Context Is Money</span></li>
-        <li><span class="ch-num">04</span> <span>The Human-Agent Myth</span></li>
-        <li><span class="ch-num">05</span> <span>From Compliance to Sovereignty</span></li>
-        <li><span class="ch-num">06</span> <span>Infinite Games</span></li>
-        <li><span class="ch-num">07</span> <span>The Organization Is a Protocol</span></li>
+        <li><span class="ch-num">01</span> <span>The Scarcest Resource</span></li>
+        <li><span class="ch-num">02</span> <span>Why CHO Is Not HR</span></li>
+        <li><span class="ch-num">03</span> <span>The Human Workplace</span></li>
+        <li><span class="ch-num">04</span> <span>Brand in the Age of Agents</span></li>
+        <li><span class="ch-num">05</span> <span>The Human Customer Experience</span></li>
+        <li><span class="ch-num">06</span> <span>Honest, Vulnerable, Real</span></li>
+        <li><span class="ch-num">07</span> <span>The Organizations That Will Survive</span></li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<section id="domains" class="domains-section">
+  <div class="domains-inner">
+    <div class="section-label">The Three Domains</div>
+    <h2>Where Human Advantage <em>Lives</em></h2>
+    <div class="domains-grid">
+      <div class="domain-card">
+        <div class="domain-card-num">01 — Team &amp; Workplace</div>
+        <h3>The Human Organization</h3>
+        <p>Psychological safety, honest leadership, and cultures where people can show up as full human beings — not just their most productive selves. The CHO builds the conditions for this to exist at scale.</p>
+      </div>
+      <div class="domain-card">
+        <div class="domain-card-num">02 — Brand Identity</div>
+        <h3>The Human Brand</h3>
+        <p>Authentic voice, earned trust, and the courage to show up with vulnerability. In a world of AI-generated content, the brands that win are the ones that feel genuinely, unmistakably human.</p>
+      </div>
+      <div class="domain-card">
+        <div class="domain-card-num">03 — Customer Experience</div>
+        <h3>The Human Moment</h3>
+        <p>The moments of genuine human contact — empathy, presence, accountability — that no AI interaction can replicate. These are now a strategic asset, not a cost to be optimized away.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -547,7 +655,7 @@
     });
   }, { threshold: 0.12 });
 
-  document.querySelectorAll('.manifesto-intro, .book-section, .community-section').forEach(el => observer.observe(el));
+  document.querySelectorAll('.manifesto-intro, .book-section, .domains-section, .community-section').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
